@@ -1,0 +1,109 @@
+<div *ngIf="articleSending" class="global-lock-overlay">
+    <div class="d-flex justify-content-center align-content-center h-100">
+        <div class="d-flex flex-column justify-content-center align-content-center">
+            <mat-spinner></mat-spinner>
+            <div class="lead text-light mt-2">Submit articles</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="mt-4">
+        <div class="mt-4">
+            <h1 class="font-weight-lighter"><mat-icon> insert_drive_file</mat-icon> Articles</h1>
+            <p class="lead">The articles uploaded to the system by the authors are listed below.</p>
+            <small class="text-muted"><mat-icon class="text-secondary" style="font-size: medium;">mouse</mat-icon> Single click selects articles, double click displays details.</small>
+            <hr>
+        </div>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="w-100">
+          
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="authorName">
+                <th mat-header-cell *matHeaderCellDef> Author Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.AuthorName}} </td>
+                </ng-container>
+            
+                <!-- Weight Column -->
+                <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+                </ng-container>
+            
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef> State </th>
+                <td mat-cell *matCellDef="let element"> {{element.State}} </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    (click)="selectArticle(row)"
+                    (dblclick)="seeDetails(row)"
+                    [class.row-is-clicked]="clickedRows.has(row)"
+                    *matRowDef="let row; columns: displayedColumns;"
+                ></tr>
+
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons 
+                           aria-label="Select page of articles">
+            </mat-paginator>
+        </div>
+
+        <div class="mt-4">
+            <h1 class="font-weight-lighter"><mat-icon>forward</mat-icon>Redirect Articles</h1>
+            <hr>
+        </div>
+
+        <div>
+            <div class="w-100">
+                <p class="lead"><mat-icon>pages</mat-icon> The articles you selected from the table above are listed below.</p>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Selected Articles</mat-label>
+                    <mat-chip-list #chipList aria-label="Article selection">
+                      <mat-chip *ngFor="let article of clickedRows" (removed)="removeArticle(article)">
+                        {{article.Title}}
+                        <button mat-icon-button matChipRemove>
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-form-field>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <p class="lead"><mat-icon> person_pin</mat-icon> Select the referees to whom you will send the article. </p>
+                    <mat-form-field class=" w-100" appearance="outline">
+                        <mat-label>Referees</mat-label>
+                        <mat-select [formControl]="refereesFormControl" multiple>
+                          <mat-select-trigger>
+                            {{refereesFormControl.value ? refereesFormControl.value[0].Title+' '+refereesFormControl.value[0].FirstName+' '+refereesFormControl.value[0].LastName : ''}}
+                            <span *ngIf="refereesFormControl.value?.length > 1" class="example-additional-selection">
+                              (+{{refereesFormControl.value.length - 1}} {{refereesFormControl.value?.length === 2 ? 'other' : 'others'}})
+                            </span>
+                          </mat-select-trigger>
+                          <mat-option *ngFor="let referee of referees" [value]="referee"> {{referee.Title}} {{referee.FirstName}} {{referee.LastName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>                  
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-4 d-flex flex-row-reverse">
+            <button mat-raised-button color="primary" (click)="redirectArticles()" class="">Redirect Articles</button>
+        </div>
+    </div>
+</div>
+    

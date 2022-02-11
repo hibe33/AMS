@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    <div class="container d-flex justify-content-between">
+        <span>AMS</span>
+        <span class="example-spacer"></span>
+        <div *ngIf="session.isSessionExist(); else elseBock">
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <span>{{session.getSessionName()}} </span>
+                    <mat-icon>person_pin</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button (click)="logout()" mat-menu-item>Logout</button>
+                    <button (click)="navaigatUpdatePass()" mat-menu-item>Update password</button>
+                </mat-menu>
+            </button>
+            
+        </div>
+        <ng-template #elseBock>
+            <button routerLink='Login' mat-raised-button color="">Login</button>
+        </ng-template>
+        
+    </div>
+</mat-toolbar>
+
+

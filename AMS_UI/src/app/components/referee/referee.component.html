@@ -1,0 +1,42 @@
+<div *ngIf="loadingArticles" class="global-lock-overlay">
+    <div class="d-flex justify-content-center align-content-center h-100">
+        <div class="d-flex flex-column justify-content-center align-content-center">
+            <mat-spinner></mat-spinner>
+            <div class="lead text-light mt-2">Loading...</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mt-4">
+        <div class="d-flex justify-content-between">
+            <p class="display-4">Article Board</p>
+            <p class="lead align-self-center"> <mat-icon style="position: absolute;">class</mat-icon> <span><div class="mx-4">{{articles.length}} Article Found </div></span> </p>
+        </div>
+        <hr>
+        <div *ngIf="articles.length > 0; else elseBlock" class="articleDesk">
+            <div class="container-x">
+                <div class="article" *ngFor="let article of articles" (click)="seeDetails(article)">
+                    <div class="card" style="--cards:3">
+                        <div class="child">
+                            <h2>{{article.Title}}</h2>
+                            <p class="authorTitle text-secondary">
+                                <span>
+                                    <mat-icon style="position: absolute;"> person_pin </mat-icon> 
+                                    <div class="mx-4">{{article.AuthorName}}</div>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="child"></div>
+                        <div class="child"></div>
+                        <div class="child"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #elseBlock><p class="lead text-danger text-center">There is no article here !</p></ng-template>
+        
+    </div>
+   
+</div>

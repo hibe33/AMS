@@ -1,0 +1,90 @@
+<h1 mat-dialog-title><mat-icon> insert_drive_file</mat-icon> {{articleData.Title}}</h1>
+<div mat-dialog-content>
+  <div *ngIf="dataLoaded; else infoBlocks">
+    <div class="d-flex flex-column">
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Name </mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorFirstName}} {{articleData.AuthorLastName}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Mail</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorMail}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Phone</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorPhone}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Notes</mat-label>
+        <textarea matInput placeholder="Placeholder" class="text-dark" rows="5" disabled value="{{articleData.AuthorNotes}}"> </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Article Creation Date</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.CreateDate}}">
+      </mat-form-field>
+
+      <div>
+        <p class="lead"><mat-icon> rate_review</mat-icon> Write Review</p>
+        <div>
+          <div class="p-2 mt-2" >
+            <div>
+              <div class="w-100">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Write your review about this article</mat-label>
+                    <textarea [attr.disabled]="reviewed" matInput required placeholder="Placeholder" rows="5" [(ngModel)]="commentInput"></textarea>
+                  </mat-form-field>
+              </div>
+              <mat-form-field class="w-100" class="example-full-width" appearance="outline">
+                <mat-label>Article Score: </mat-label>
+                <input [attr.disabled]="reviewed" matInput required placeholder="Value must between 0-100." type="number" min="0" max="100" [formControl]="rateControl" [(ngModel)]="scoreInput">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="lead">Orginal Article</p>
+      <hr>
+        <pdf-viewer [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="true"
+                style="width: 100%; height: 700px;"
+        ></pdf-viewer>
+
+    </div>
+  </div>
+  <ng-template #infoBlocks>
+    <div *ngIf="errorOccured; then error else loading"></div>
+    <ng-template #loading>
+      <div class="d-flex justify-content-center">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>    
+
+    <ng-template #error>
+      <div class="d-flex justify-content-center">
+        <strong class="text-danger">There was an error loading the article. Please try again.</strong>
+      </div>
+    </ng-template>
+
+  </ng-template>
+  
+</div>
+
+<div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-end mt-3">
+    <a href="{{pdfSrc}}" target="_blank" download class="btn btn-outline-dark"><mat-icon>picture_as_pdf</mat-icon><span> Download Article</span></a>
+  </div>
+
+  <div class="pt-4" *ngIf="!reviewed">
+    <button class="btn btn-outline-success mr-2" (click)="writeReview()">Send Review</button>  
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="btn btn-outline-dark" (click)="onNoClick()">Close</button>
+  </div>
+  
+</div>

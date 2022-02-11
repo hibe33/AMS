@@ -1,0 +1,39 @@
+<div *ngIf="loggingIn" class="global-lock-overlay">
+    <div class="d-flex justify-content-center align-content-center h-100">
+        <div class="d-flex flex-column justify-content-center align-content-center">
+            <mat-spinner></mat-spinner>
+            <div class="lead text-light mt-2">Logging in...</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mt-4">
+        <div class="col-lg-4 col-sm-12 mx-auto">
+            <p class="display-4">Login</p>
+            <div class="d-flex flex-column">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input [(ngModel)]="email" matInput placeholder="Placeholder">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter your password</mat-label>
+                    <input [(ngModel)]="password" matInput [type]="hidePass ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePass">
+                      <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="pb-3">
+                    <div>
+                        <a routerLink='/ForgetPassword'>Forget Password ?</a>
+                    </div>
+                </div>
+
+                <button (click)="login()" mat-raised-button color="primary">Login</button>
+                <p class="mt-3 text-center text-muted"><strong>AMS</strong> -  ©2021-2022 All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>

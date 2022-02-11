@@ -1,0 +1,43 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.info-success{
+    background-color: rgb(24, 189, 134);
+    color: rgb(255, 255, 255);
+}
+
+.info-danger{
+    background-color: rgb(153, 0, 0);
+    color: white;
+}
+
+.info-warning{
+    background-color: rgb(170, 113, 8);
+    color: white;
+}
+
+.info-default{
+    background-color: rgb(51, 77, 221);
+    color: white;
+}
+
+.notification-message{
+    background-color: rgb(12, 12, 12);
+    color: tomato
+}
+
+.text-sm{
+    font-size: 11px;
+}
+
+.global-lock-overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 30, 30, 0.5);
+    z-index: 99999999;
+}

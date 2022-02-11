@@ -1,0 +1,64 @@
+<div *ngIf="userSending" class="global-lock-overlay">
+    <div class="d-flex justify-content-center align-content-center h-100">
+        <div class="d-flex flex-column justify-content-center align-content-center">
+            <mat-spinner></mat-spinner>
+            <div class="lead text-light mt-2">Creating User...</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="mt-4">
+        <form #refereeLoad="ngForm" (ngSubmit)="onClickSubmit(refereeLoad.value)" >
+            <div class="">
+                <p class="display-4">Add Referee</p>
+                <div class="mt-4">
+                    <h1 class="font-weight-lighter">Referee Information</h1>
+                    <hr>
+                </div>
+                
+                <div class="mx-auto d-flex flex-column justify-content-center w-50">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>First Name</mat-label>
+                        <input name="firstName" type="text" matInput required ngModel>
+                        <mat-icon matSuffix class="text-danger">*</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Last Name</mat-label>
+                        <input name="lastName" type="text" matInput required ngModel>
+                        <mat-icon matSuffix class="text-danger">*</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Title</mat-label>
+                        <input name="title" type="text" matInput required ngModel>
+                        <mat-icon matSuffix class="text-danger">*</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Email</mat-label>
+                        <input name="mail" type="email" matInput required placeholder="Ex. pat@example.com" ngModel>
+                        <mat-icon matSuffix class="text-danger">*</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Phone</mat-label>
+                        <input name="phone" type="number" matInput ngModel>
+                        <mat-icon matSuffix class="text-danger">*</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Select Role</mat-label>
+                        <mat-select [(value)]="selectedRole">
+                          <mat-option value="Admin">Admin</mat-option>
+                          <mat-option value="Referee">Referee</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    <div class="d-flex justify-content-end">
+                        <button mat-raised-button color="primary" class="mt-4 mb-4 px-3" type="submit">Submit</button>
+                    </div>
+                </div>
+
+                
+            </div>
+        </form>
+
+    </div>
+</div>

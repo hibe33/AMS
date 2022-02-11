@@ -1,0 +1,80 @@
+<h1 mat-dialog-title><mat-icon> insert_drive_file</mat-icon> {{articleData.Title}}</h1>
+<div mat-dialog-content>
+  <div *ngIf="dataLoaded; else infoBlocks">
+    <div class="d-flex flex-column">
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Name </mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorFirstName}} {{articleData.AuthorLastName}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Mail</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorMail}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Phone</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.AuthorPhone}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Author Notes</mat-label>
+        <textarea matInput placeholder="Placeholder" class="text-dark" rows="5" disabled value="{{articleData.AuthorNotes}}"> </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="text-dark">Article Creation Date</mat-label>
+        <input matInput placeholder="Placeholder" class="text-dark" disabled value="{{articleData.CreateDate}}">
+      </mat-form-field>
+
+      <div>
+        <p class="lead"><mat-icon> rate_review</mat-icon> Referee Reviews</p>
+        <div *ngIf="articleData.ArticleComments.length > 0; else noReview">
+          <div *ngFor="let comment of articleData.ArticleComments" class="border rounded p-2 mt-2" >
+            <div matBadge="{{comment.Score}}" matBadgeOverlap="false">
+              <div class="w-100">
+                <label class="text-dark text-sm"> Referee</label>
+                <p>{{comment.Referee.Title}} {{comment.Referee.FirstName}} {{comment.Referee.LastName}}</p>
+              </div>
+        
+              <div class="w-100">
+                <label class="text-dark text-sm"> Comment</label>
+                <p>{{comment.Comment}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noReview>
+          <span>No referee review available yet.</span>
+        </ng-template>  
+      </div>
+    </div>
+  </div>
+  <ng-template #infoBlocks>
+    <div *ngIf="errorOccured; then error else loading"></div>
+    <ng-template #loading>
+      <div class="d-flex justify-content-center">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>    
+
+    <ng-template #error>
+      <div class="d-flex justify-content-center">
+        <strong class="text-danger">There was an error loading the article. Please try again.</strong>
+      </div>
+    </ng-template>
+
+  </ng-template>
+  
+</div>
+
+<div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-end mt-3">
+    <a href="{{pdfSrc}}" download target="_blank" class="btn btn-outline-dark"><mat-icon>picture_as_pdf</mat-icon><span> Download Article</span></a>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="btn btn-outline-dark" (click)="onNoClick()">Close</button>    
+  </div>
+  
+</div>
